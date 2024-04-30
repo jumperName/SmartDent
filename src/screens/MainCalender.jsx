@@ -167,8 +167,9 @@ const MainCalender = ({
             </View>
             <View style={styles.containeModal}>
               <FlatList
+             
                 numColumns={'2'}
-                data={['08:30', '09:00', '10:00', '10:30', '11:00', '11:30']}
+                data={['08:30', '09:00','09:30','10:00', '10:30', '11:00', '11:30']}
                 renderItem={({ item, index }) => {
                   return (
                     <TouchableOpacity
@@ -517,8 +518,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
+ 
   },
   timeSlot: {
+    flex:1,
+    
     marginLeft: 20,
     marginTop: 10,
     width: '40%',

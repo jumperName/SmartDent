@@ -31,7 +31,7 @@ const ReportDental = props => {
           />
             <Card.Content style={styles.ParagraphStyle}>
               <Paragraph style={{ fontSize: 18, color:'black' }}>
-          {' '}{props.getAppoint.firstname}   {props.getAppoint.lastname}
+          {''}{props.getAppoint.firstname}   {props.getAppoint.lastname}
           </Paragraph>
           </Card.Content>
         </Title>
@@ -58,17 +58,12 @@ const ReportDental = props => {
         </Paragraph>
       </Card.Content>
 
-      <Card.Content style={styles.ParagraphStyle}>
-      <Paragraph style={{ fontSize: 18, color:'black' }}>
-          <Image
-            source={DateTime}
-            style={styles.inputIcon}
-            resizeMode="contain"
-          />
-           
+      <Card.Content style={styles.ParagraphStyle}>   
+      <Paragraph style={{ fontSize: 18, color:'green' }}>
+      **นัดจองคิวทำฟันวันที่ :           
            {' '}{moment(props.getAppoint.app_date)
             .add(543, 'year')
-            .format('DD-MM-YYYY')}
+            .format('DD-MM-YYYY')} **
         </Paragraph>
       </Card.Content>
 
@@ -86,6 +81,16 @@ const ReportDental = props => {
           {' '} {props.getAppoint.app_line}
         </Paragraph>
       </Card.Content>
+
+      <Card.Content style={styles.ParagraphStyle}>   
+      <Paragraph style={{ fontSize: 17, color:'red' }}>
+      จองคิวผ่าน Mobile Application วันที่           
+           {' '}{moment(props.getAppoint.timestamp)
+            .add(543, 'year')
+            .format('DD-MM-YYYY')} 
+        </Paragraph>
+      </Card.Content>
+      
     </Card>
   )
 }
@@ -105,8 +110,9 @@ const styles = StyleSheet.create({
     height: 25,
   },
   ParagraphStyle:{
+    padding:2,
     marginTop:5,
-    fontSize: 18,
+    fontSize: 15,
      color:'black'
   }
 })

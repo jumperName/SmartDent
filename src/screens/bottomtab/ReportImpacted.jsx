@@ -133,7 +133,7 @@ const ReportImpacted = ({navigation ,initDate = new Date()}) => {
   }
 
   const get_alldatedent = async (month, year) => {
-    fetch(`${host}/get_alldatedent2/${year}/MONTH/${month}`)
+    fetch(`${host}/get_alldatedent2V2/${year}/MONTH/${month}`)
     .then(res => res.json())
     .then(
       result => {

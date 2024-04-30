@@ -12,8 +12,9 @@ import ReportExtract from '../screens/bottomtab/ReportExtract'
 import ReportImpacted from '../screens/bottomtab/ReportImpacted'
 import CheckboxImpacted from '../screens/CheckboxImpacted'
 import CheckboxExtract from '../screens/CheckboxExtract'
-import CrudHoliday from '../screens/CrudHoliday'
+import CrudHoliday from '../screens/CrudHoliday'  
 import CrudDayoff from '../screens/CrudDayoff'
+import CheckUpdate from '../screens/CheckUpdate'
 import ConfirmApp from '../screens/ConfirmApp'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import IonIcon from 'react-native-vector-icons/Ionicons';
@@ -45,9 +46,9 @@ const Navigation = () => {
         <Stack.Screen name="ReportExtract" component={ReportExtract} />
         <Stack.Screen name="ReportImpacted" component={ReportImpacted} />
         <Stack.Screen name="CrudDayoff" component={CrudDayoff} />
-         <Stack.Screen name="Detail" component={Detail} return true/> 
-         
-
+        <Stack.Screen name="CheckUpdate" component={CheckUpdate} />    
+         <Stack.Screen name="Detail" component={Detail} return true/>         
+  
         {/* <Stack.Screen name="DrawerNavigator" component={CrudHoliday} /> */}
       </Stack.Navigator>
     </NavigationContainer>

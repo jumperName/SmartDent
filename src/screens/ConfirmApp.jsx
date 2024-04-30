@@ -82,8 +82,9 @@ const ConfirmApp = props => {
     }
   }
 
-  const getname = async () => {
+  const getname = async () => { //จำนวนคิวที่เหลือ
     if (Typedent == 1) {
+      checkdent1()
       fetch(`${host}/get_freedatedent1/${Fulltime}`)
         .then(response => response.json())
         .then(data => {
@@ -94,7 +95,8 @@ const ConfirmApp = props => {
         })
         .catch(error => console.error(error))
     }
-    if (Typedent == 2) {
+    if (Typedent == 2) { //จำนวนคิวที่เหลือ
+      checkdent2()
       fetch(`${host}/get_freedatedent2/${Fulltime}`)
         .then(response => response.json())
         .then(data => {
@@ -129,7 +131,54 @@ const ConfirmApp = props => {
     setIsLoading(false)
   }
 
+  const checkdent1 = async () => {
+    const response = await  fetch(`${host}/Check_dent1`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify({
+        cid: AppCid,
+        firstname: AppName,
+        lastname: AppLastname,
+      }),
+    })
+    const data = await response.json()
+    if (data.status === 'ไม่สามารถจองคิวได้เนื่องจากคุณได้มีการจองคิวแล้ว') {
+      Alert.alert(data.status, data.massage, [
+        { text: 'ตกลง', onPress: () => console.log('OK Pressed') },
+      ])
+      props.navigation.navigate('CalenderImpacted')
+    } 
+  }
+
+
+  const checkdent2 = async () => {
+    const response = await  fetch(`${host}/Check_dent2`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify({
+        cid: AppCid,
+        firstname: AppName,
+        lastname: AppLastname,
+      }),
+    })
+    const data = await response.json()
+    if (data.status === 'ไม่สามารถจองคิวได้เนื่องจากคุณได้มีการจองคิวแล้ว') {
+      Alert.alert(data.status, data.massage, [
+        { text: 'ตกลง', onPress: () => console.log('OK Pressed') },
+      ])
+      props.navigation.navigate('CalenderImpacted')
+    } 
+  }
+
+
   useEffect(() => {
+   
     getname()
   }, [isLoading])
 

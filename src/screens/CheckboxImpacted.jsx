@@ -10,7 +10,7 @@ import {
   SafeAreaView,
   Dimensions,
   ImageBackground,
-  
+  TextInput,
 } from 'react-native'
 
 const { width, height } = Dimensions.get('screen')
@@ -19,6 +19,8 @@ import React, { useEffect, useState } from 'react'
 import { CheckBox } from 'react-native-elements'
 import { ConnectionInternet } from '../../lib/ConnectionInternet'
 import LinearGradient from 'react-native-linear-gradient'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 const CheckboxImpacted = ({ navigation }) => {
   const [selectedIndex, setIndex] = React.useState(false)
@@ -26,17 +28,51 @@ const CheckboxImpacted = ({ navigation }) => {
   const [selectedIndex3, setIndex3] = React.useState(false)
   const [selectedIndex4, setIndex4] = React.useState(false)
   const [selectedIndex5, setIndex5] = React.useState(false)
+  const [errors, setErrors] = useState({})
+  const [AppLine, setAppLine] = useState('')
+  const line = require('../assets/images/register/line2.png')
 
   const backIcon = require('../assets/images/register/back.png')
   const background = require('../assets/images/register/background.png')
 
   useEffect(() => {})
 
+  const validateForm = () => {
+    let errors = {}
+
+    if (!AppLine) errors.AppLine = 'กรุณากรอก LINE ID'
+   
+    setErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+
+  const handleSubmit = async () => {
+   
+  }
+
+
   const onGoBackPress = () => {
     navigation.goBack()
   }
 
   const click = () => {
+
+    if (validateForm()) {
+      console.log('Submitted',AppLine)
+
+      setErrors({})
+      try {
+      
+        AsyncStorage.setItem('AppLine', AppLine)
+        console.log('ok')
+        
+      } catch (error) {
+        console.log(error)
+      }
+      navigation.navigate('CalenderImpacted')
+  
+    }
+
     if (
       selectedIndex === false ||
       selectedIndex2 === false ||
@@ -90,7 +126,7 @@ const CheckboxImpacted = ({ navigation }) => {
       )
       return
     } else {
-      navigation.navigate('CalenderImpacted')
+   
 
       return
     }
@@ -277,8 +313,36 @@ const CheckboxImpacted = ({ navigation }) => {
                     checkedIcon="dot-circle-o"
                     uncheckedIcon="circle-o"
                   />
+                   
+                      
                 </View>
+                <View style={styles.inputContainer}>
+
+                <View style={styles.iconContainer}>
+                  <Image
+                    source={line}
+                    style={styles.inputIcon}
+                    resizeMode="contain"
+                  />
+                </View>
+
+                <TextInput
+                  style={[styles.input2, styles.whiteFont]}
+                  placeholder="LINE ID"
+                  // clearTextEntry
+                  // value={AppName}
+                  placeholderTextColor="#0a3a66"
+                  underlineColorAndroid="transparent"
+                  onChangeText={setAppLine}
+                />
+                     </View>
+                     <View style={styles.ValidateContainer}>
+                {errors.AppLine ? (
+                  <Text style={styles.errorText}>{errors.AppLine}</Text>
+                ) : null}
               </View>
+              </View>
+              
             </View>
             <View style={styles.footerContainer}>
               <TouchableOpacity onPress={click}>
@@ -303,6 +367,16 @@ const styles = StyleSheet.create({
    
   },
 
+  iconContainer: {
+    paddingHorizontal: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inputIcon: {
+    width: 50,
+    height: 50,
+  },
+
   containerCheck: {
     padding: 15,
     borderRadius: 10,
@@ -312,6 +386,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#FFF5EE',
     marginTop: '1.5%',
+  },
+
+  inputContainer: {
+    borderWidth: 1,
+    borderBottomColor: '#CCCCCC',
+    borderColor: 'transparent',
+    flexDirection: 'row',
+    marginTop: '3%',
+    padding: '20',
   },
   containerCheckT: {
     padding: 10,
@@ -376,5 +459,30 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'black',
     fontSize: 18,
+  },
+  input2: {
+    backgroundColor: 'white',
+    marginTop: 5,
+    width: '70%',  
+    borderWidth: 1,
+    borderColor: 'thistle',
+    borderRadius: 50,
+    fontSize: RFValue(12, 580) // second argument is standardScreenHeight(optional),
+  },
+  
+  whiteFont: {
+    color: '#0a3a66',
+  },
+  ValidateContainer: {
+    borderWidth: 1,
+    borderBottomColor: '#CCCCCC',
+    borderColor: 'transparent',
+    flexDirection: 'row',
+  },
+  errorText: {
+    // width: '38%',
+    marginLeft: 65,
+    color: 'red',
+   // marginBottom: 10,
   },
 })

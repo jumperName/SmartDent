@@ -74,7 +74,7 @@ const BottomTabNavigator = ({ navigation }) => {
         name="ReportImpacted"
         component={ReportImpacted}
         options={{
-          tabBarLabel: 'ชายชื่อผ่าฟันคุด',
+          tabBarLabel: 'รายชื่อผ่าฟันคุด',
           tabBarIcon: ({ color, size }) => (
             <IonIcon name="person-circle-sharp" color={color} size={size} />
           ),

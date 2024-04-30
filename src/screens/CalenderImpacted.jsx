@@ -107,6 +107,7 @@ const CalenderImpacted = ({
   useEffect(() => {
     fetchFulldate(
       initDate.getMonth()+1,
+      initDate.getMonth()+2,
       initDate.getFullYear(),
     )
     getDisabledDays(
@@ -117,7 +118,9 @@ const CalenderImpacted = ({
    
   }, [isLoading])
 
-  const fetchFulldate = async (month, year) => {    
+
+  
+  const fetchFulldate = async (month,month2, year) => {    
       
     const response=await  fetch(`${host}/get_holidays`)
     const data=await response.json();
@@ -129,11 +132,16 @@ const CalenderImpacted = ({
     setGetFullDate(data2)
      
 
-   const response3 = await  fetch(`${host}/get_dayoffdent2/${year}/MONTH/${month}`)
+   const response3 = await  fetch(`${host}/get_dayoffdent2/${year}/MONTH/${month}/MONTH2/${month2}`) 
     const data3=await response3.json();
     setDayoffs(data3)
-   // console.log(data3)
+    console.log(data3)
+
+   const response4=await  fetch(`${host}/get_fulldatedent22/${year}/MONTH/${month}/MONTH2/${month2}`) //เด็ม 2 เดือน
+   const data4=await response4.json();
+   setGetFullDate(data4)
         setIsLoading(false)
+       
   }
 
 
@@ -250,6 +258,7 @@ const CalenderImpacted = ({
 
       Dayoffs.map(item => {
         disabledDates[moment(item.d_date).format('YYYY-MM-DD')] = disabledProps //Dayoff     
+        //console.log(Dayoffs)
       })
 
       GetFullDate.map(item => {
@@ -303,7 +312,9 @@ const CalenderImpacted = ({
                 </View>
 
                 <Calendar
+                
                   theme={{
+                   
                     textDayFontFamily: 'monospace',
                     textMonthFontFamily: 'monospace',
                     textDayHeaderFontFamily: 'monospace',

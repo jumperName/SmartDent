@@ -46,7 +46,7 @@ const InputRegister = ({ navigation, connectionType }) => {
     if (!AppName) errors.AppName = 'กรุณากรอกชื่อ'
     if (!AppLastname) errors.AppLastname = 'กรุณากรอกนามสกุล'
     if (!AppCid) errors.AppCid = 'กรุณากรอกเลขบัตรประชาชน'
-    if (!AppLine) errors.AppLine = 'กรุณากรอก LINE ID'
+   
     if (AppCid.length < 16) {
       errors.AppCid = 'กรุณากรอกเลขบัตรประชาชน 4 ตัวสุดท้าย'
     }
@@ -61,7 +61,7 @@ const InputRegister = ({ navigation, connectionType }) => {
 
   const handleSubmit = async () => {
     if (validateForm()) {
-      console.log('Submitted', AppName, AppLastname, AppCid, AppTele,AppLine)
+      console.log('Submitted', AppName, AppLastname, AppCid, AppTele)
 
       setErrors({})
       try {
@@ -69,7 +69,7 @@ const InputRegister = ({ navigation, connectionType }) => {
         AsyncStorage.setItem('AppLastnames', AppLastname)
         AsyncStorage.setItem('AppCids', AppCid)
         AsyncStorage.setItem('AppTeles', AppTele)
-        AsyncStorage.setItem('AppLine', AppLine)
+     
         console.log('ok')
       } catch (error) {
         console.log(error)
@@ -216,30 +216,8 @@ const InputRegister = ({ navigation, connectionType }) => {
                 <Text style={styles.errorText}>{errors.AppTele}</Text>
               ) : null}
 
-              <View style={styles.inputContainer}>
-                <View style={styles.iconContainer}>
-                  <Image
-                    source={line}
-                    style={styles.inputIcon}
-                    resizeMode="contain"
-                  />
-                </View>
-
-                <TextInput
-                  style={[styles.input2, styles.whiteFont]}
-                  placeholder="LINE ID"
-                  // clearTextEntry
-                  // value={AppName}
-                  placeholderTextColor="#0a3a66"
-                  underlineColorAndroid="transparent"
-                  onChangeText={setAppLine}
-                />
-              </View>
-              <View style={styles.ValidateContainer}>
-                {errors.AppLine ? (
-                  <Text style={styles.errorText}>{errors.AppLine}</Text>
-                ) : null}
-              </View>
+              
+           
             </View>
 
             <View style={styles.footerContainer}>
